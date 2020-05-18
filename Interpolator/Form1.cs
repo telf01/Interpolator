@@ -16,5 +16,29 @@ namespace Interpolator
 		{
 			InitializeComponent();
 		}
+
+		private void inputTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if(inputTextBox.Text == "")
+			{
+				button1.Enabled = false;
+			}
+			else
+			{
+				button1.Enabled = true;
+			}
+		}
+
+		private void outputTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (outputTextBox.Text == "")
+			{
+				button1.Enabled = false;
+			}
+			else
+			{
+				button1.Enabled = true;
+			}
+		}
 	}
 }
