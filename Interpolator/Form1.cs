@@ -60,6 +60,10 @@ namespace Interpolator
 			{
 				data = FileReader.GetData(inputTextBox.Text);
 			} while (data == null);
+
+			var spline = new CubicSpline(data);
+			spline.FindNeighbours(16);
+
 			ChartForm chartForm = new ChartForm();
 			chartForm.Data = data;
 			chartForm.Show();
