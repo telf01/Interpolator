@@ -13,7 +13,7 @@ namespace Interpolator
 		/// <summary>
 		/// Method for reading data from a file.
 		/// </summary>
-		public static List<double> GetData(string path)
+		public static List<(double, double)> GetData(string path)
 		{
 			// All lines from file in array.
 			string[] rawInput = null;
@@ -41,15 +41,17 @@ namespace Interpolator
 				}
 				return null;
 			}
-			List<double> output = new List<double>();
+			List<(double X, double Y)> output = new List<(double X, double Y)>();
 			// Temporary var. Used for proper splitting
 			string[] splitTemp;
 			int rawInputLength = rawInput.Length;
+			var temp = (X:0d, Y:0d);
 			for(int i =0; i < rawInputLength; i++)
 			{
 				splitTemp = rawInput[i].Split();
-				output.Add(Convert.ToDouble(splitTemp[0]));
-				output.Add(Convert.ToDouble(splitTemp[1]));
+				temp.X = Convert.ToDouble(splitTemp[0]);
+				temp.Y = Convert.ToDouble(splitTemp[1]);
+				output.Add(temp);
 			}
 			return output;
 		}

@@ -55,7 +55,7 @@ namespace Interpolator
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			List<double> data;
+			List<(double X, double Y)> data;
 			do
 			{
 				data = FileReader.GetData(inputTextBox.Text);

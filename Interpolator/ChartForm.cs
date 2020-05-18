@@ -12,7 +12,7 @@ namespace Interpolator
 {
 	public partial class ChartForm : Form
 	{
-		public List<double> Data { get; set; }
+		public List<(double X, double Y)> Data { get; set; }
 		public ChartForm()
 		{
 			InitializeComponent();
@@ -23,7 +23,7 @@ namespace Interpolator
 			int dataLength = Data.Count();
 			for (int i = 0; i < dataLength; i++)
 			{
-				chart1.Series[0].Points.AddXY(Data[i], Data[++i]);
+				chart1.Series[0].Points.AddXY(Data[i].X, Data[i].Y);
 			}
 		}
 	}
