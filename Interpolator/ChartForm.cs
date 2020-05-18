@@ -12,6 +12,7 @@ namespace Interpolator
 {
 	public partial class ChartForm : Form
 	{
+		public List<double> Data { get; set; }
 		public ChartForm()
 		{
 			InitializeComponent();
@@ -19,7 +20,11 @@ namespace Interpolator
 
 		private void ChartForm_Load(object sender, EventArgs e)
 		{
-			chart1.Legends.Clear();
+			int dataLength = Data.Count();
+			for (int i = 0; i < dataLength; i++)
+			{
+				chart1.Series[0].Points.AddXY(Data[i], Data[++i]);
+			}
 		}
 	}
 }

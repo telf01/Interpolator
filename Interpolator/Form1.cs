@@ -49,6 +49,7 @@ namespace Interpolator
 				data = FileReader.GetData(inputTextBox.Text);
 			} while (data == null);
 			ChartForm chartForm = new ChartForm();
+			chartForm.Data = data;
 			chartForm.Show();
 		}
 	}
