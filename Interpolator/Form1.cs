@@ -43,6 +43,11 @@ namespace Interpolator
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			List<double> data;
+			do
+			{
+				data = FileReader.GetData(inputTextBox.Text);
+			} while (data == null);
 			ChartForm chartForm = new ChartForm();
 			chartForm.Show();
 		}
