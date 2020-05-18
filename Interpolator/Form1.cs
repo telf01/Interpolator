@@ -40,5 +40,11 @@ namespace Interpolator
 				button1.Enabled = true;
 			}
 		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			ChartForm chartForm = new ChartForm();
+			chartForm.Show();
+		}
 	}
 }

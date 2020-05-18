@@ -16,5 +16,10 @@ namespace Interpolator
 		{
 			InitializeComponent();
 		}
+
+		private void ChartForm_Load(object sender, EventArgs e)
+		{
+			chart1.Legends.Clear();
+		}
 	}
 }
