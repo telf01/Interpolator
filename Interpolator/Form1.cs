@@ -41,6 +41,18 @@ namespace Interpolator
 			}
 		}
 
+		private void distanceTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (distanceTextBox.Text == "")
+			{
+				button1.Enabled = false;
+			}
+			else
+			{
+				button1.Enabled = true;
+			}
+		}
+
 		private void button1_Click(object sender, EventArgs e)
 		{
 			List<double> data;
