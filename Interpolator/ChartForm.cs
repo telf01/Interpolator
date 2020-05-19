@@ -26,11 +26,13 @@ namespace Interpolator
 			for (int i = 0; i < dataLength; i++)
 			{
 				chart1.Series[1].Points.AddXY(InterpolatedData[i].X, InterpolatedData[i].Y);
+				Application.DoEvents();
 			}
 			dataLength = Data.Count();
 			for (int i = 0; i < dataLength; i++)
 			{
 				chart1.Series[0].Points.AddXY(Data[i].X, Data[i].Y);
+				Application.DoEvents();
 			}
 			
 		}

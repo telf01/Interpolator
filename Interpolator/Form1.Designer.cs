@@ -36,6 +36,10 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.distanceTextBox = new System.Windows.Forms.TextBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -45,7 +49,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.button1.Location = new System.Drawing.Point(16, 115);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(286, 23);
+			this.button1.Size = new System.Drawing.Size(286, 25);
 			this.button1.TabIndex = 0;
 			this.button1.Text = "Process data";
 			this.button1.UseVisualStyleBackColor = true;
@@ -123,11 +127,33 @@
 			this.checkBox1.Text = "Need to draw a chart?";
 			this.checkBox1.UseVisualStyleBackColor = true;
 			// 
+			// statusStrip1
+			// 
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 152);
+			this.statusStrip1.Name = "statusStrip1";
+			this.statusStrip1.Size = new System.Drawing.Size(316, 22);
+			this.statusStrip1.TabIndex = 8;
+			this.statusStrip1.Text = "Progress:";
+			// 
+			// toolStripProgressBar1
+			// 
+			this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+			this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+			// 
+			// toolStripStatusLabel1
+			// 
+			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+			this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(316, 148);
+			this.ClientSize = new System.Drawing.Size(316, 174);
+			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.distanceTextBox);
 			this.Controls.Add(this.label3);
@@ -136,9 +162,11 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button1);
-			this.MinimumSize = new System.Drawing.Size(332, 187);
+			this.MinimumSize = new System.Drawing.Size(332, 213);
 			this.Name = "Form1";
 			this.Text = "Interpolator";
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -154,6 +182,9 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox distanceTextBox;
 		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 	}
 }
 

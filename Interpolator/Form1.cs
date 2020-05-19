@@ -55,11 +55,18 @@ namespace Interpolator
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			toolStripStatusLabel1.Text = "Reading data from file...";
+			toolStripProgressBar1.Value = 20;
+			Application.DoEvents();
+
 			List<(double X, double Y)> data;
 			do
 			{
 				data = FileWorker.GetData(inputTextBox.Text);
 			} while (data == null);
+			toolStripStatusLabel1.Text = "Spline calculating...";
+			toolStripProgressBar1.Value = 40;
+			Application.DoEvents();
 
 			double last = data.OrderByDescending(a => a.X).First().X;
 			double step = Convert.ToDouble(distanceTextBox.Text);
@@ -72,8 +79,18 @@ namespace Interpolator
 				double answer = spline.Solve(x, t);
 				(double, double) formatedAnswer = (t, answer);
 				interpolatedPoints.Add(formatedAnswer);
+				Application.DoEvents();
 			}
+			toolStripStatusLabel1.Text = "Writing data to file...";
+			toolStripProgressBar1.Value = 60;
+			Application.DoEvents();
+
 			FileWorker.WriteData(interpolatedPoints, outputTextBox.Text);
+
+			toolStripStatusLabel1.Text = "Drawing graph....";
+			toolStripProgressBar1.Value = 80;
+			Application.DoEvents();
+
 			if (checkBox1.Checked)
 			{
 				ChartForm chartForm = new ChartForm();
@@ -81,10 +98,8 @@ namespace Interpolator
 				chartForm.InterpolatedData = interpolatedPoints;
 				chartForm.Show();
 			}
-			else
-			{
-				MessageBox.Show("The calculations are completed.", "The calculations are completed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
+			toolStripStatusLabel1.Text = "Completed!";
+			toolStripProgressBar1.Value = 100;
 		}
 	}
 }
