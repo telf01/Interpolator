@@ -53,6 +53,18 @@ namespace Interpolator
 				temp.Y = Convert.ToDouble(splitTemp[1]);
 				output.Add(temp);
 			}
+			if(output.Count < 4)
+			{
+				var result = MessageBox.Show("You must enter more than 4 points. ", "Error while reading file.", MessageBoxButtons.RetryCancel);
+				// Check for what the user has decided: try again or close.
+				if (result == DialogResult.Cancel)
+				{
+					Application.Exit();
+					Environment.Exit(1);
+					return null;
+				}
+				return null;
+			}
 			return output;
 		}
 		public static void WriteData(List<(double, double)> data,string path)
