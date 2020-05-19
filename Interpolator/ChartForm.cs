@@ -37,7 +37,21 @@ namespace Interpolator
 
 		private void SaveButton_Click(object sender, EventArgs e)
 		{
+			Bitmap bmp = new Bitmap(chart1.Width, chart1.Height);
+			chart1.DrawToBitmap(bmp, new Rectangle(0, 0, chart1.Width, chart1.Height));
+			bmp.Save(textBox1.Text);
+		}
 
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			if(textBox1.Text == "")
+			{
+				SaveButton.Enabled = false;
+			}
+			else
+			{
+				SaveButton.Enabled = true;
+			}
 		}
 	}
 }
