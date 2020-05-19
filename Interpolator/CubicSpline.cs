@@ -33,17 +33,6 @@ namespace Interpolator
 
 		public Vector<double> SystemOfEquationSolver((double X, double Y)[] neighbours)
 		{
-
-			var AE = Matrix<double>.Build.DenseOfArray(new double[,] {
-	{ 3, 2, -1 },
-	{ 2, -2, 4 },
-	{ -1, 0.5, -1 }
-			});
-			var bE = Vector<double>.Build.Dense(new double[] { 1, -2, 0 });
-			var xE = AE.Solve(bE);
-
-
-
 			double[,] aData = new double[4, 4];
 			for(int i = 0; i < 4; i++)
 			{
@@ -63,5 +52,10 @@ namespace Interpolator
 			return x;
 		}
 
+		public double Solve(Vector<double> vector, double t)
+		{
+			double answer = vector[0] + vector[1] * t + vector[2] * Math.Pow(t, 2) + vector[3] * Math.Pow(t, 3);
+			return answer;
+		}
 	}
 }

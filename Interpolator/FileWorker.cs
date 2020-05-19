@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Interpolator
 {
-	static class FileReader
+	static class FileWorker
 	{
 		/// <summary>
 		/// Method for reading data from a file.
@@ -55,6 +55,14 @@ namespace Interpolator
 			}
 			return output;
 		}
-
+		public static void WriteData(List<(double, double)> data,string path)
+		{
+			TextWriter tw = new StreamWriter(path);
+			foreach (var element in data)
+			{
+				tw.WriteLine(Convert.ToString(element));
+			}
+			tw.Close();
+		}
 	}
 }
