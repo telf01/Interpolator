@@ -62,7 +62,9 @@ namespace Interpolator
 			} while (data == null);
 
 			var spline = new CubicSpline(data);
-			spline.FindNeighbours(16);
+			var neighbours = spline.FindNeighbours(16);
+
+			var x = spline.SystemOfEquationSolver(neighbours);
 
 			ChartForm chartForm = new ChartForm();
 			chartForm.Data = data;
