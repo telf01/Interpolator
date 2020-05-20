@@ -46,12 +46,26 @@ namespace Interpolator
 			string[] splitTemp;
 			int rawInputLength = rawInput.Length;
 			var temp = (X:0d, Y:0d);
-			for(int i =0; i < rawInputLength; i++)
+			try
 			{
-				splitTemp = rawInput[i].Split();
-				temp.X = Convert.ToDouble(splitTemp[0]);
-				temp.Y = Convert.ToDouble(splitTemp[1]);
-				output.Add(temp);
+				for (int i = 0; i < rawInputLength; i++)
+				{
+					splitTemp = rawInput[i].Split();
+					temp.X = Convert.ToDouble(splitTemp[0]);
+					temp.Y = Convert.ToDouble(splitTemp[1]);
+					output.Add(temp);
+				}
+			}
+			catch
+			{
+				var result = MessageBox.Show("Format error.\nOpen the " + path + " file and enter the data in it in the format:\nx1 y1\nx2 y2\n...", "Error while reading file.", MessageBoxButtons.RetryCancel);
+				// Check for what the user has decided: try again or close.
+				if (result == DialogResult.Cancel)
+				{
+					Application.Exit();
+					Environment.Exit(1);
+					return null;
+				}
 			}
 			if(output.Count < 4)
 			{

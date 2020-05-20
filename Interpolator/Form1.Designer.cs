@@ -112,7 +112,7 @@
 			this.distanceTextBox.Name = "distanceTextBox";
 			this.distanceTextBox.Size = new System.Drawing.Size(141, 20);
 			this.distanceTextBox.TabIndex = 6;
-			this.distanceTextBox.Text = "0,2";
+			this.distanceTextBox.Text = "0,01";
 			this.distanceTextBox.TextChanged += new System.EventHandler(this.distanceTextBox_TextChanged);
 			// 
 			// checkBox1
