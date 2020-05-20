@@ -20,16 +20,8 @@ namespace Interpolator
 		/// <summary>
 		/// Method for finding 4 nearest neighbors for x.
 		/// </summary>
-		public (double, double)[] FindNeighbours(double x)
-		{
-			var temp = Data.OrderBy(b => Math.Abs(x - b.X)).ToList();
-			(double, double)[] output = new (double, double)[4];
-			for(int i = 0; i < 4; i++)
-			{
-				output[i] = temp[i];
-			}
-			return output;
-		}
+		public (double, double)[] FindNeighbours(double x) =>
+			Data.OrderBy(b => Math.Abs(x - b.X)).Take(4).ToArray();
 
 		public Vector<double> SystemOfEquationSolver((double X, double Y)[] neighbours)
 		{
