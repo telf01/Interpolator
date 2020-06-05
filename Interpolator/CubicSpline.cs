@@ -17,31 +17,38 @@ namespace Interpolator
 			Data = data;
 		}
 
-		/// <summary>
-		/// Method for finding 4 nearest neighbors for x.
-		/// </summary>
-		public (double, double)[] FindNeighbours(double x) =>
-			Data.OrderBy(b => Math.Abs(x - b.X)).Take(4).ToArray();
-
-		public Vector<double> SystemOfEquationSolver((double X, double Y)[] neighbours)
+		public Matrix<double> CalculateSplines()
 		{
-			double[,] aData = new double[4, 4];
-			for(int i = 0; i < 4; i++)
+			int pointCount = Data.Count();
+			List<double>[] splineMatrix = new List<double>[pointCount * 3];
+			List<double> answerMatrix = new List<double>();
+			int k = 0;
+
+			for(int i = 0; i < pointCount - 1; i++)
 			{
-				for(int k = 0; k < 4; k++)
-				{
-					aData[i, k] = Math.Pow(neighbours[i].X, k);
-				}
+				splineMatrix[k] = new List<double>();
+
+				splineMatrix[k].Add(1);
+				splineMatrix[k].Add(Data[i].X - Data[i].X);
+				splineMatrix[k].Add(Math.Pow(Data[i].X - Data[i].X, 2));
+				splineMatrix[k].Add(Math.Pow(Data[i].X - Data[i].X, 3));
+				
+				answerMatrix.Add(Data[i].Y);
+
+				k++;
+				splineMatrix[k] = new List<double>();
+
+				splineMatrix[k].Add(1);
+				splineMatrix[k].Add(Data[i + 1].X - Data[i].X);
+				splineMatrix[k].Add(Math.Pow(Data[i + 1].X - Data[i].X, 2));
+				splineMatrix[k].Add(Math.Pow(Data[i + 1].X - Data[i].X, 3));
+
+				answerMatrix.Add(Data[i + 1].Y);
+
+				k++;
 			}
-			var a = Matrix<double>.Build.DenseOfArray(aData);
-			double[] bData = new double[4];
-			for (int i = 0; i < 4; i++)
-			{
-				bData[i] = neighbours[i].Y;
-			}
-			var b = Vector<double>.Build.DenseOfArray(bData);
-			var x = a.Solve(b);
-			return x;
+
+			return null;
 		}
 
 		public double Solve(Vector<double> vector, double t)

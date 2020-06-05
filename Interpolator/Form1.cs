@@ -74,11 +74,7 @@ namespace Interpolator
 			for (double t = data.OrderByDescending(a => a.X).Last().X; t <= last; t+=step)
 			{
 				var spline = new CubicSpline(data);
-				var neighbours = spline.FindNeighbours(t);
-				var x = spline.SystemOfEquationSolver(neighbours);
-				double answer = spline.Solve(x, t);
-				(double, double) formatedAnswer = (t, answer);
-				interpolatedPoints.Add(formatedAnswer);
+				var x = spline.CalculateSplines();
 				Application.DoEvents();
 			}
 			toolStripStatusLabel1.Text = "Writing data to file...";
