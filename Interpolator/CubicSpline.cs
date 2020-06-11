@@ -2,6 +2,7 @@
 using MathNet.Numerics.LinearAlgebra.Complex;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -17,44 +18,35 @@ namespace Interpolator
 			Data = data;
 		}
 
-		public Matrix<double> CalculateSplines()
+		public Vector<double> CreateBaseMatrix()
 		{
-			int pointCount = Data.Count();
-			List<double>[] splineMatrix = new List<double>[pointCount * 3];
-			List<double> answerMatrix = new List<double>();
-			int k = 0;
-
-			for(int i = 0; i < pointCount - 1; i++)
+			int dataCount = Data.Count(); 
+			double[,] matrix = new double[(dataCount - 1) * 4, (dataCount - 1) * 4];
+			double[] answers = new double[(dataCount - 1) * 4];
+			int pointerPosition = 0;
+			int j = 0;
+			for (int i = 0; i < (dataCount - 1); i++)
 			{
-				splineMatrix[k] = new List<double>();
+				matrix[j, pointerPosition] = 1;
+				j++;
+				matrix[j, pointerPosition] = 1;
+				matrix[j, ++pointerPosition] = Data[i + 1].X - Data[i].X;
+				matrix[j, ++pointerPosition] = Math.Pow((Data[i + 1].X - Data[i].X), 2);
+				matrix[j, ++pointerPosition] = Math.Pow((Data[i + 1].X - Data[i].X), 3);
+				pointerPosition++;
+				j++;
+			}
 
-				splineMatrix[k].Add(1);
-				splineMatrix[k].Add(Data[i].X - Data[i].X);
-				splineMatrix[k].Add(Math.Pow(Data[i].X - Data[i].X, 2));
-				splineMatrix[k].Add(Math.Pow(Data[i].X - Data[i].X, 3));
-				
-				answerMatrix.Add(Data[i].Y);
-
-				k++;
-				splineMatrix[k] = new List<double>();
-
-				splineMatrix[k].Add(1);
-				splineMatrix[k].Add(Data[i + 1].X - Data[i].X);
-				splineMatrix[k].Add(Math.Pow(Data[i + 1].X - Data[i].X, 2));
-				splineMatrix[k].Add(Math.Pow(Data[i + 1].X - Data[i].X, 3));
-
-				answerMatrix.Add(Data[i + 1].Y);
-
-				k++;
+			j = 0;
+			for(int i = 0; i < (dataCount - 1); i++)
+			{
+				answers[j] = Data[i].Y;
+				j++;
+				answers[j] = Data[i + 1].Y;
+				j++;
 			}
 
 			return null;
-		}
-
-		public double Solve(Vector<double> vector, double t)
-		{
-			double answer = vector[0] + vector[1] * t + vector[2] * Math.Pow(t, 2) + vector[3] * Math.Pow(t, 3);
-			return answer;
 		}
 	}
 }
