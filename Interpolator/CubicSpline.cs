@@ -25,7 +25,8 @@ namespace Interpolator
 			double[] answers = new double[(dataCount - 1) * 4];
 			int pointerPosition = 0;
 			int j = 0;
-			for (int i = 0; i < (dataCount - 1); i++)
+			int tempI = 0;
+			for (int i = 0; i < dataCount - 1; i++)
 			{
 				matrix[j, pointerPosition] = 1;
 				j++;
@@ -35,14 +36,32 @@ namespace Interpolator
 				matrix[j, ++pointerPosition] = Math.Pow((Data[i + 1].X - Data[i].X), 3);
 				pointerPosition++;
 				j++;
+				tempI = i;
+			}
+
+			pointerPosition = 0;
+			for(int i = 1; i < dataCount - 1; i++)
+			{
+				matrix[j, ++pointerPosition] = 1;
+				
+				matrix[j, ++pointerPosition] = 2 * (Data[i].X - Data[i - 1].X);
+				matrix[j, ++pointerPosition] = 3 * Math.Pow((Data[i].X - Data[i - 1].X), 2);
+				matrix[j, pointerPosition + 2] = -1;
+				j++;
 			}
 
 			j = 0;
-			for(int i = 0; i < (dataCount - 1); i++)
+			for(int i = 0; i < dataCount - 1; i++)
 			{
 				answers[j] = Data[i].Y;
 				j++;
 				answers[j] = Data[i + 1].Y;
+				j++;
+			}
+
+			for(int i = 0; i < dataCount - 1; i++)
+			{
+				answers[j] = 0;
 				j++;
 			}
 
