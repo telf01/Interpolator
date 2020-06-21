@@ -59,18 +59,16 @@ namespace Interpolator
 				j++;
 			}
 
+			matrix[j, 2] = 2;
+			matrix[++j, dataCount * 3 - 2] = 2;
+			matrix[j, dataCount * 3 - 1] = 6 * (Data[dataCount - 1].X - Data[dataCount - 2].X);
+
 			j = 0;
 			for(int i = 0; i < dataCount - 1; i++)
 			{
 				answers[j] = Data[i].Y;
 				j++;
 				answers[j] = Data[i + 1].Y;
-				j++;
-			}
-
-			for(int i = 0; i < dataCount - 1; i++)
-			{
-				answers[j] = 0;
 				j++;
 			}
 
