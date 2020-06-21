@@ -2,6 +2,7 @@
 using MathNet.Numerics.LinearAlgebra.Complex;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
@@ -25,7 +26,6 @@ namespace Interpolator
 			double[] answers = new double[(dataCount - 1) * 4];
 			int pointerPosition = 0;
 			int j = 0;
-			int tempI = 0;
 			for (int i = 0; i < dataCount - 1; i++)
 			{
 				matrix[j, pointerPosition] = 1;
@@ -36,17 +36,26 @@ namespace Interpolator
 				matrix[j, ++pointerPosition] = Math.Pow((Data[i + 1].X - Data[i].X), 3);
 				pointerPosition++;
 				j++;
-				tempI = i;
 			}
 
 			pointerPosition = 0;
 			for(int i = 1; i < dataCount - 1; i++)
 			{
 				matrix[j, ++pointerPosition] = 1;
-				
 				matrix[j, ++pointerPosition] = 2 * (Data[i].X - Data[i - 1].X);
 				matrix[j, ++pointerPosition] = 3 * Math.Pow((Data[i].X - Data[i - 1].X), 2);
 				matrix[j, pointerPosition + 2] = -1;
+				pointerPosition++;
+				j++;
+			}
+
+			pointerPosition = 1;
+			for(int i = 1; i < dataCount - 1; i++)
+			{
+				matrix[j, ++pointerPosition] = 2;
+				matrix[j, ++pointerPosition] = 6 * (Data[i].X - Data[i - 1].X);
+				matrix[j, pointerPosition + 3] = -2;
+				pointerPosition += 2;
 				j++;
 			}
 
