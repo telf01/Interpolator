@@ -74,7 +74,8 @@ namespace Interpolator
 			for (double t = data.OrderByDescending(a => a.X).Last().X; t <= last; t+=step)
 			{
 				var spline = new CubicSpline(data);
-				var x = spline.CreateBaseMatrix();
+				var system = spline.CreateBaseMatrix();
+				var answers = spline.CalculateSystem(system);
 				Application.DoEvents();
 			}
 			toolStripStatusLabel1.Text = "Writing data to file...";

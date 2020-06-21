@@ -19,7 +19,7 @@ namespace Interpolator
 			Data = data;
 		}
 
-		public Vector<double> CreateBaseMatrix()
+		public (Matrix<double>, Vector<double>) CreateBaseMatrix()
 		{
 			int dataCount = Data.Count(); 
 			double[,] matrix = new double[(dataCount - 1) * 4, (dataCount - 1) * 4];
@@ -72,7 +72,17 @@ namespace Interpolator
 				j++;
 			}
 
-			return null;
+			Matrix<double> mat = Matrix<double>.Build.DenseOfArray(matrix);
+			Vector<double> ans = Vector<double>.Build.DenseOfArray(answers);
+			(Matrix<double>, Vector<double>) ret = (mat, ans);
+
+			return ret;
+		}
+		
+		public Vector<double> CalculateSystem((Matrix<double>, Vector<double>) data)
+		{
+			var ret = data.Item1.Solve(data.Item2);
+			return ret;
 		}
 	}
 }
