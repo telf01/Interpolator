@@ -84,5 +84,20 @@ namespace Interpolator
 			var ret = data.Item1.Solve(data.Item2);
 			return ret;
 		}
+
+		public int FindCurentSpline(double value)
+		{
+			int dataCount = Data.Count();
+			int tempI = 0;
+			for(int i = 1; i < dataCount; i++)
+			{
+				if(value >= Data[i - 1].X && value < Data[i].X)
+				{
+					return i;
+				}
+				tempI = i;
+			}
+			return tempI + 1;
+		}
 	}
 }

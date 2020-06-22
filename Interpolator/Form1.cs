@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathNet.Numerics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -71,13 +72,20 @@ namespace Interpolator
 			double last = data.OrderByDescending(a => a.X).First().X;
 			double step = Convert.ToDouble(distanceTextBox.Text);
 			List<(double X, double Y)> interpolatedPoints = new List<(double X, double Y)>();
-			for (double t = data.OrderByDescending(a => a.X).Last().X; t <= last; t+=step)
+
+			var spline = new CubicSpline(data);
+			var system = spline.CreateBaseMatrix();
+			var answers = spline.CalculateSystem(system);
+			Application.DoEvents();
+
+			for (double t = data.OrderByDescending(a => a.X).Last().X; t <= last; t += step)
 			{
-				var spline = new CubicSpline(data);
-				var system = spline.CreateBaseMatrix();
-				var answers = spline.CalculateSystem(system);
-				Application.DoEvents();
+				int currentSplineNumber = spline.FindCurentSpline(t);
+				int j = currentSplineNumber * 4;
+				double currentY = answers[j - 4] + answers[j - 3] * (t - data[currentSplineNumber - 1].X) + answers[j - 2] * Math.Pow((t - data[currentSplineNumber - 1].X), 2) + answers[j - 1] * Math.Pow((t - data[currentSplineNumber - 1].X), 3);
+				interpolatedPoints.Add((t, currentY));
 			}
+
 			toolStripStatusLabel1.Text = "Writing data to file...";
 			toolStripProgressBar1.Value = 60;
 			Application.DoEvents();
