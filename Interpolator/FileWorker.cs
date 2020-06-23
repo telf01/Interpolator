@@ -56,9 +56,9 @@ namespace Interpolator
 					output.Add(temp);
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
-				var result = MessageBox.Show("Format error.\nOpen the " + path + " file and enter the data in it in the format:\nx1 y1\nx2 y2\n...", "Error while reading file.", MessageBoxButtons.RetryCancel);
+				var result = MessageBox.Show("Format error.\nOpen the " + path + " file and enter the data in it in the format:\nx1 y1\nx2 y2\n...", "Error while reading file.\n" + ex.Message, MessageBoxButtons.RetryCancel);
 				// Check for what the user has decided: try again or close.
 				if (result == DialogResult.Cancel)
 				{
@@ -67,18 +67,18 @@ namespace Interpolator
 					return null;
 				}
 			}
-			//if(output.Count < 4)
-			//{
-			//	var result = MessageBox.Show("You must enter more than 4 points. ", "Error while reading file.", MessageBoxButtons.RetryCancel);
-			//	// Check for what the user has decided: try again or close.
-			//	if (result == DialogResult.Cancel)
-			//	{
-			//		Application.Exit();
-			//		Environment.Exit(1);
-			//		return null;
-			//	}
-			//	return null;
-			//}
+			if(output.Count < 4)
+			{
+				var result = MessageBox.Show("You must enter more than 4 points. ", "Error while reading file.", MessageBoxButtons.RetryCancel);
+				// Check for what the user has decided: try again or close.
+				if (result == DialogResult.Cancel)
+				{
+					Application.Exit();
+					Environment.Exit(1);
+					return null;
+				}
+				return null;
+			}
 			return output;
 		}
 		public static void WriteData(List<(double, double)> data,string path)

@@ -19,13 +19,17 @@ namespace Interpolator
 			Data = data;
 		}
 
+		/// <summary>
+		/// Method that forms the basic system of linear equations.
+		/// </summary>
 		public (Matrix<double>, Vector<double>) CreateBaseMatrix()
 		{
-			int dataCount = Data.Count(); 
+			int dataCount = Data.Count();
 			double[,] matrix = new double[(dataCount - 1) * 4, (dataCount - 1) * 4];
 			double[] answers = new double[(dataCount - 1) * 4];
 			int pointerPosition = 0;
 			int j = 0;
+			//Step 1.1. The spline goes through the nodal points.
 			for (int i = 0; i < dataCount - 1; i++)
 			{
 				matrix[j, pointerPosition] = 1;
@@ -37,7 +41,7 @@ namespace Interpolator
 				pointerPosition++;
 				j++;
 			}
-
+			//Step 2.1. Verification of identical derivatives in nodal points.
 			pointerPosition = 0;
 			for(int i = 1; i < dataCount - 1; i++)
 			{
@@ -48,7 +52,7 @@ namespace Interpolator
 				pointerPosition++;
 				j++;
 			}
-
+			//Step 2.2. Verification of identical second derivatives in nodal points.
 			pointerPosition = 1;
 			for(int i = 1; i < dataCount - 1; i++)
 			{
@@ -58,11 +62,11 @@ namespace Interpolator
 				pointerPosition += 2;
 				j++;
 			}
-
+			//Step 3. The second derivatives are zero at the first and last points.
 			matrix[j, 2] = 2;
 			matrix[++j, dataCount * 3 - 2] = 2;
 			matrix[j, dataCount * 3 - 1] = 6 * (Data[dataCount - 1].X - Data[dataCount - 2].X);
-
+			//Step 1.2. Adding answers for step 1.
 			j = 0;
 			for(int i = 0; i < dataCount - 1; i++)
 			{
@@ -84,7 +88,9 @@ namespace Interpolator
 			var ret = data.Item1.Solve(data.Item2);
 			return ret;
 		}
-
+		/// <summary>
+		/// Method for finding the spline to which the point belongs.
+		/// </summary>
 		public int FindCurentSpline(double value)
 		{
 			int dataCount = Data.Count();
