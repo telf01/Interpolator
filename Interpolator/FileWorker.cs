@@ -67,6 +67,7 @@ namespace Interpolator
 					return null;
 				}
 			}
+			/*
 			if(output.Count < 4)
 			{
 				var result = MessageBox.Show("You must enter more than 4 points. ", "Error while reading file.", MessageBoxButtons.RetryCancel);
@@ -79,6 +80,7 @@ namespace Interpolator
 				}
 				return null;
 			}
+			*/
 			return output;
 		}
 		public static void WriteData(List<(double, double)> data,string path)

@@ -25,8 +25,8 @@ namespace Interpolator
 		public (Matrix<double>, Vector<double>) CreateBaseMatrix()
 		{
 			int dataCount = Data.Count();
-			double[,] matrix = new double[(dataCount - 1) * 4, (dataCount - 1) * 4];
-			double[] answers = new double[(dataCount - 1) * 4];
+			double[,] matrix = new double[(dataCount - 1) * 2 + dataCount - 2 + dataCount -2 + 2, (dataCount - 1) * 2 + dataCount - 2 + dataCount - 2 + 2];
+			double[] answers = new double[(dataCount - 1) * 2 + dataCount - 2 + dataCount - 2 + 2];
 			int pointerPosition = 0;
 			int j = 0;
 			//Step 1.1. The spline goes through the nodal points.
